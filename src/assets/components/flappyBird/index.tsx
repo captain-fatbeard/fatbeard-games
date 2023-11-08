@@ -31,7 +31,7 @@ export default function FlappyBird() {
   const easeOutCubic = (t: number) => 1 - (1 - t) ** 3
 
   const game = useMemo(() => gameSettings, [])
-  const canvasRef = useRef(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const [startGame, setStartGame] = useState(false)
   const [gameOver, setGameOver] = useState(false)
