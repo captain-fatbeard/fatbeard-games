@@ -93,6 +93,7 @@ export default function FlappyBird() {
 
             return () => clearInterval(flyInterval);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [birdY, setBirdY, game.background.height, game.bird.height]);
 
     // Update wall's x position
@@ -144,6 +145,7 @@ export default function FlappyBird() {
             setGameOver(true);
             setStartGame(false);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [birdY, wallX, wall2X, wallPosition, wall2Position]);
 
     // Draw canvas elements
@@ -183,6 +185,7 @@ export default function FlappyBird() {
 
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [wallX, game]);
 
     // Render the canvas element
