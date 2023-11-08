@@ -13,9 +13,9 @@ const gameSettings = {
     height: 50,
     startX: 100,
     startY: 720 / 2,
+    radius: 50 / 2,
   },
   walls: {
-    color: 'grey',
     width: 100,
     height: 600,
     gap: 270,
@@ -41,6 +41,20 @@ export default function FlappyBird() {
   const [wallPosition, setWallPosition] = useState(-350) // between -550 and -100
   const [wall2Position, setWall2Position] = useState(-500) // between -550 and -100
   const [wall2X, setWall2X] = useState(game.background.width + game.background.width / 2)
+  const [gameSpeed, setGameSpeed] = useState(4)
+  const [wallColor, setWallColor] = useState('grey')
+  const [animating, setAnimating] = useState(false)
+
+  const [frame, setFrame] = useState(0)
+
+  useEffect(() => {
+    if (startGame) {
+      const frameRate = setInterval(() => {
+        setFrame(frame + 1)
+      }, gameSpeed)
+      return () => clearInterval(frameRate)
+    }
+  }, [frame, startGame, gameSpeed])
 
   const resetGame = () => {
     setScore(0)
@@ -49,6 +63,8 @@ export default function FlappyBird() {
     setWallPosition(randomNumber(-550, -100))
     setWall2X(game.background.width + game.background.width / 2)
     setWall2Position(randomNumber(-550, -100))
+    setGameSpeed(3)
+    setWallColor('grey')
 
     setGameOver(false)
     setStartGame(true)
@@ -57,6 +73,7 @@ export default function FlappyBird() {
   // Animate bird
   const animateBird = (startY: number, endY: number, duration: number) => {
     if (startGame) {
+      setAnimating(true)
       const startTime = performance.now()
 
       const animate = () => {
@@ -70,6 +87,7 @@ export default function FlappyBird() {
         }
         else {
           setBirdY(endY)
+          setTimeout(() => setAnimating(false), 50)
         }
       }
 
@@ -82,23 +100,23 @@ export default function FlappyBird() {
     animateBird(birdY, endY, 700)
   }
 
-  // Update bird's y position
+  // Bird gravity
   useEffect(() => {
-    if (startGame) {
+    if (startGame && !animating) {
       const flyInterval = setInterval(() => {
         if (birdY <= game.background.height - game.bird.height)
           setBirdY(birdY + 1)
-      }, 6)
+      }, 2)
 
       return () => clearInterval(flyInterval)
     }
-  }, [birdY, setBirdY, game.background.height, game.bird.height])
+  }, [birdY, animating])
 
   // Update wall's x position
   useEffect(() => {
     if (startGame) {
       const wallInterval = setInterval(() => {
-        const wallSpeed = 1
+        const wallSpeed = 2
 
         if (wallX < -game.walls.width) {
           setWallX(game.background.width + game.walls.width * 2)
@@ -118,13 +136,22 @@ export default function FlappyBird() {
       }, 2)
       return () => clearInterval(wallInterval)
     }
-  }, [wallX, setWallX, wall2X, setWall2X, game, startGame])
+  }, [frame, startGame])
 
   // Update score
   useEffect(() => {
     if (wallX - 200 === game.bird.startX || wall2X - 200 === game.bird.startX)
       setScore(prevScore => prevScore + 1)
-  }, [wallX, wall2X, setScore, game.bird.startX])
+
+    if (score > 4) {
+      setGameSpeed(3)
+      setWallColor('darkgrey')
+    }
+    if (score > 9) {
+      setGameSpeed(2)
+      setWallColor('black')
+    }
+  }, [frame])
 
   // Check for collision
   useEffect(() => {
@@ -153,21 +180,27 @@ export default function FlappyBird() {
         ctx.fillStyle = game.background.color
         ctx.fillRect(0, 0, game.background.width, game.background.height)
 
+        ctx.fillStyle = 'blue'
+        ctx.fillRect(0, 200, game.background.width, game.background.height)
+
         // Bird
         ctx.fillStyle = game.bird.color
-        ctx.fillRect(game.bird.startX, birdY, game.bird.width, game.bird.height)
+        ctx.beginPath()
+        ctx.arc(game.bird.startX + game.bird.radius, birdY + game.bird.radius, game.bird.radius, 0, Math.PI * 2)
+        ctx.fill()
+        ctx.closePath()
 
         // Walls
-        ctx.fillStyle = 'grey'
+        ctx.fillStyle = wallColor
         ctx.fillRect(wallX - 200, wallPosition, game.walls.width, game.walls.height)
 
-        ctx.fillStyle = 'grey'
+        ctx.fillStyle = wallColor
         ctx.fillRect(wallX - 200, wallPosition + game.walls.height + game.walls.gap, game.walls.width, game.walls.height)
 
-        ctx.fillStyle = 'grey'
+        ctx.fillStyle = wallColor
         ctx.fillRect(wall2X - 200, wall2Position, game.walls.width, game.walls.height)
 
-        ctx.fillStyle = 'grey'
+        ctx.fillStyle = wallColor
         ctx.fillRect(wall2X - 200, wall2Position + game.walls.height + game.walls.gap, game.walls.width, game.walls.height)
 
         // score
@@ -179,7 +212,7 @@ export default function FlappyBird() {
         ctx.fillText(`score: ${score}`, 70, 40)
       }
     }
-  }, [wallX, game])
+  }, [frame])
 
   // Render the canvas element
   return (
@@ -197,12 +230,7 @@ export default function FlappyBird() {
         {gameOver && (
           <div className="__gameover">
             <h2>game over</h2>
-            <p>
-              You got
-              {score}
-              {' '}
-              points
-            </p>
+            <p>{`You got ${score} ${score === 1 ? 'point' : 'points'}`}</p>
             <button className="button" onClick={resetGame}>Try again</button>
           </div>
         )}
