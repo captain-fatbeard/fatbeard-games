@@ -1,4 +1,3 @@
-
 import './App.css'
 import FlappyBird from './assets/components/flappyBird'
 
