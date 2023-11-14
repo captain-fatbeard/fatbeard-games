@@ -28,8 +28,6 @@ function randomNumber(min: number, max: number) {
 }
 
 export default function FlappyBird() {
-  const easeOutCubic = (t: number) => 1 - (1 - t) ** 3
-
   const game = useMemo(() => gameSettings, [])
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -70,34 +68,30 @@ export default function FlappyBird() {
     setStartGame(true)
   }
 
-  // Animate bird
-  const animateBird = (startY: number, endY: number, duration: number) => {
-    if (startGame) {
-      setAnimating(true)
-      const startTime = performance.now()
+  const flyBird = ({ endPosition }: { endPosition: number }) => {
+    if (!startGame)
+      return
+    setAnimating(true)
+    const speed = 20
+    let y = birdY
+    const animate = () => {
+      if (y > endPosition && y > 0) {
+        // y = y - 1
+        y = Math.max(y - speed, endPosition)
 
-      const animate = () => {
-        const currentTime = performance.now()
-        const elapsedTime = currentTime - startTime
-        if (elapsedTime < duration) {
-          const position = easeOutCubic(elapsedTime / duration)
-          const newY = Math.floor(startY + (endY - startY) * position)
-          setBirdY(newY)
-          requestAnimationFrame(animate)
-        }
-        else {
-          setBirdY(endY)
-          setTimeout(() => setAnimating(false), 50)
-        }
+        setBirdY(y)
+
+        requestAnimationFrame(animate)
       }
-
-      requestAnimationFrame(animate)
+      else {
+        setTimeout(() => setAnimating(false), 50)
+      }
     }
+    animate()
   }
 
   const handleMouseClick = () => {
-    const endY = birdY - 200 < 0 ? 0 : birdY - 200
-    animateBird(birdY, endY, 700)
+    flyBird({ endPosition: birdY - 200 })
   }
 
   // Bird gravity
