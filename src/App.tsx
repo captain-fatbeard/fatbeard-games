@@ -1,10 +1,12 @@
 import './App.css'
-import FlappyBird from './assets/components/flappyBird'
+import RunningMan from './assets/components/runningMan'
 
 function App() {
   return (
     <>
-      <FlappyBird />
+      <div className="main">
+        <RunningMan />
+      </div>
     </>
   )
 }
