@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/captain-fatbeard/fatbeard-games/compare/v0.0.4...v0.0.5) (2023-11-14)
+
+
+### Features
+
+* add running man game created with phaser js ([00c1939](https://github.com/captain-fatbeard/fatbeard-games/commit/00c1939dfb502eb6c7b5736a02a1db8906433943))
+* **flappy-bird:** tweek game ([2491004](https://github.com/captain-fatbeard/fatbeard-games/commit/249100498d2e19f67eaccdd938184216f3c4d25e))
+* game updates ([4f91bac](https://github.com/captain-fatbeard/fatbeard-games/commit/4f91bacf1e945401a2a44f3829ebfa288d75ecee))
+
 ### [0.0.4](https://github.com/captain-fatbeard/flappy-bird/compare/v0.0.3...v0.0.4) (2023-11-08)
 
 
