@@ -12,8 +12,8 @@ const RunningMan: React.FC = () => {
   useEffect(() => {
     const config: Phaser.Types.Core.GameConfig = {
       type: Phaser.AUTO,
-      width: '100%',
-      height: 600,
+      width: window.innerWidth,
+      height: window.innerHeight,
       physics: {
         default: 'arcade',
         arcade: {
@@ -31,31 +31,30 @@ const RunningMan: React.FC = () => {
     }
 
     const game = new Phaser.Game(config)
-    const parentElement = game.scale.parent
-    const gameWidthInPixels = parentElement.offsetWidth
+    const gameDimentions = game.scale.gameSize
 
     let gameIsRunning = false
     let gameOver = false
 
     function preload(this: Phaser.Scene) {
       Start.preload(this)
-      Background.preload(this, gameWidthInPixels)
+      Background.preload(this, gameDimentions)
       Player.preload(this)
       Opstacle.preload(this)
       Logo.preload(this)
     }
 
     function create(this: Phaser.Scene & { initialTime?: number }) {
-      Background.create(this, gameWidthInPixels)
-      GameOver.create(this, gameWidthInPixels)
-      Logo.create(this, gameWidthInPixels)
-      const startButton = Start.create(this, gameWidthInPixels)
+      Background.create(this, gameDimentions)
+      GameOver.create(this, gameDimentions)
+      Logo.create(this, gameDimentions)
+      const startButton = Start.create(this, gameDimentions)
       const player = Player.create(this)
 
       startButton.on('pointerdown', () => {
         gameIsRunning = true
         startButton.destroy()
-        const obstacle = Opstacle.create(this, gameWidthInPixels)
+        const obstacle = Opstacle.create(this, gameDimentions)
         this.physics.add.collider(player, obstacle, handleCollision, undefined, this)
       })
     }

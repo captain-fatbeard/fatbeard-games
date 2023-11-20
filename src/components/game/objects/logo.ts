@@ -6,9 +6,9 @@ export default class Logo {
     scene.load.svg('logo', logo, { width: 200, height: 200 })
   }
 
-  static create(scene: Phaser.Scene, gameWidthInPixels: number) {
+  static create(scene: Phaser.Scene, gameDimentions: Phaser.Structs.Size) {
     const logo = scene.add.image(
-      gameWidthInPixels as number / 2,
+      gameDimentions.width / 2,
       100,
       'logo',
     ).setInteractive() as any

@@ -1,10 +1,10 @@
 import type Phaser from 'phaser'
 
 export default class GameOver {
-  static create(scene: Phaser.Scene, gameWidthInPixels: number) {
+  static create(scene: Phaser.Scene, gameDimentions: Phaser.Structs.Size) {
     const gameOverText = scene.add.text(
-      gameWidthInPixels as number / 2,
-      600 / 2,
+      gameDimentions.width / 2,
+      gameDimentions.height / 2,
       'Game Over',
       {
         fontSize: '32px',

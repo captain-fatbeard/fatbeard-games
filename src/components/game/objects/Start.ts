@@ -6,10 +6,10 @@ export default class Start {
     scene.load.svg('start-button', startButton, { width: 200, height: 200 })
   }
 
-  static create(scene: Phaser.Scene, gameWidthInPixels: number) {
+  static create(scene: Phaser.Scene, gameDimentions: Phaser.Structs.Size) {
     const button = scene.add.image(
-      gameWidthInPixels as number / 2,
-      600 / 2,
+      gameDimentions.width / 2,
+      gameDimentions.height / 2,
       'start-button',
     ).setInteractive() as any
     button.setOrigin(0.5)
