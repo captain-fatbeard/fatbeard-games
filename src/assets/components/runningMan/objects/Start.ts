@@ -15,6 +15,16 @@ export default class Start {
     button.setOrigin(0.5)
     button.setScale(1)
 
+    button.on('pointerover', () => {
+      button.setTint(0xCCCCCC)
+      scene.input.setDefaultCursor('pointer')
+    })
+
+    button.on('pointerout', () => {
+      button.clearTint()
+      scene.input.setDefaultCursor('auto')
+    })
+
     return button
   }
 }

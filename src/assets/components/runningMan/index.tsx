@@ -6,6 +6,7 @@ import Background from './objects/background'
 import Opstacle from './objects/opstacle'
 import Start from './objects/Start'
 import GameOver from './objects/gameOver'
+import Logo from './objects/logo'
 
 const RunningMan: React.FC = () => {
   useEffect(() => {
@@ -41,11 +42,13 @@ const RunningMan: React.FC = () => {
       Background.preload(this, gameWidthInPixels)
       Player.preload(this)
       Opstacle.preload(this)
+      Logo.preload(this)
     }
 
     function create(this: Phaser.Scene & { initialTime?: number }) {
       Background.create(this, gameWidthInPixels)
       GameOver.create(this, gameWidthInPixels)
+      Logo.create(this, gameWidthInPixels)
       const startButton = Start.create(this, gameWidthInPixels)
       const player = Player.create(this)
 
@@ -60,11 +63,12 @@ const RunningMan: React.FC = () => {
     function update(this: Phaser.Scene) {
       Background.update(this, gameIsRunning)
       GameOver.update(this, gameOver)
+      Logo.update(this, gameOver)
     }
 
     function handleCollision(this: Phaser.Scene) {
-      game.scene.pause('default')
       gameOver = true
+      game.scene.pause('default')
     }
 
     return () => {

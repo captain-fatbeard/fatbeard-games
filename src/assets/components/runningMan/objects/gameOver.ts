@@ -17,8 +17,8 @@ export default class GameOver {
   }
 
   static update(scene: Phaser.Scene, gameOver: boolean) {
-    const gameOverElem = scene.children.getByName('gameOver') as any
-    if (gameOverElem && gameOver)
-      gameOverElem.setVisible(true)
+    const elem = scene.children.getByName('gameOver') as Phaser.GameObjects.Text
+    if (elem && gameOver && !elem.visible && !scene.physics.world.isPaused)
+      elem.setVisible(true)
   }
 }
