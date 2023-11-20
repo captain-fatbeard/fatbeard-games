@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react'
 import Phaser from 'phaser'
 
+// assets
+import charactor from './assets/charactor.svg'
+import opstacle from './assets/opstacle.svg'
+import waves from './assets/waves.svg'
+
 const RunningMan: React.FC = () => {
   useEffect(() => {
     const config: Phaser.Types.Core.GameConfig = {
@@ -31,11 +36,23 @@ const RunningMan: React.FC = () => {
     let timer: Phaser.GameObjects.Text
 
     function preload(this: Phaser.Scene) {
+      this.load.svg('charactor', charactor, { width: 200 })
+      this.load.svg('opstacle', opstacle, { width: 200, height: 200 })
+      this.load.svg('waves', waves, { width: gameWidthInPixels })
     }
 
     function create(this: Phaser.Scene & { initialTime?: number }) {
-      const player = this.add.circle(100, 550, 50, 0x0000FF) as any
+      // Load the waves SVG as a tile sprite
+      const background = this.add.tileSprite(0, 400, gameWidthInPixels, 600, 'waves')
+      background.setName('background')
+      background.setOrigin(0, 0)
+      background.setTileScale(1, 1)
+      background.setTilePosition(background.tilePositionX - 2, 0)
+
+      // Load the character SVG as an image
+      const player = this.add.image(0, 0, 'charactor') as any
       player.setOrigin(0.5)
+      player.setScale(1)
 
       // Enable the player for physics
       this.physics.world.enable(player)
@@ -79,7 +96,10 @@ const RunningMan: React.FC = () => {
       this.time.addEvent({ delay: 1000, callback: updateTime, callbackScope: this, loop: true })
     }
 
-    function update() {
+    function update(this: Phaser.Scene) {
+      const background = this.children.getByName('background') as any
+      if (background)
+        background.setTilePosition(background.tilePositionX + 7, 0)
     }
 
     function updateTime(this: Phaser.Scene & { initialTime: number }) {
@@ -88,14 +108,10 @@ const RunningMan: React.FC = () => {
     }
 
     function spawnObstacle(this: Phaser.Scene) {
-      const obstacleHeight = 100
-
-      const obstacle = this.add.rectangle(
-        gameWidthInPixels + obstacleHeight / 2,
-        game.config.height as number - obstacleHeight / 2,
-        100,
-        obstacleHeight,
-        0xFF0000,
+      const obstacle = this.add.image(
+        gameWidthInPixels + 200 / 2,
+        500,
+        'opstacle',
       ) as any
 
       this.tweens.add({
