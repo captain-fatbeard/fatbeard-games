@@ -3,7 +3,7 @@ import charactor from './../assets/charactor.svg'
 
 export default class Player {
   static preload(scene: Phaser.Scene) {
-    scene.load.svg('charactor', charactor, { width: 200 })
+    scene.load.svg('charactor', charactor, { width: 243, height: 272 })
   }
 
   static create(scene: Phaser.Scene) {

@@ -3,7 +3,7 @@ import Phaser from 'phaser'
 
 import Player from './objects/player'
 import Background from './objects/background'
-import Opstacle from './objects/opstacle'
+import Obstacle from './objects/obstacle'
 import Start from './objects/Start'
 import GameOver from './objects/gameOver'
 import Logo from './objects/logo'
@@ -40,7 +40,7 @@ const RunningMan: React.FC = () => {
       Start.preload(this)
       Background.preload(this, gameDimentions)
       Player.preload(this)
-      Opstacle.preload(this)
+      Obstacle.preload(this)
       Logo.preload(this)
     }
 
@@ -54,7 +54,7 @@ const RunningMan: React.FC = () => {
       startButton.on('pointerdown', () => {
         gameIsRunning = true
         startButton.destroy()
-        const obstacle = Opstacle.create(this, gameDimentions)
+        const obstacle = Obstacle.create(this, gameDimentions)
         this.physics.add.collider(player, obstacle, handleCollision, undefined, this)
       })
     }
