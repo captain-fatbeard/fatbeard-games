@@ -1,11 +1,10 @@
-# Flappy bird game
+# Ola Lompa Jumping Game
 
-Code template for a flappy bird game
 
 
 ## Tech Stack
 
-Vite, React, Typescript
+Vite, React, Typescript, PhaserJS
 
 
 ## Run Locally
@@ -13,13 +12,13 @@ Vite, React, Typescript
 Clone the project
 
 ```bash
-git clone captain-fatbeard/flappy-bird.git
+git clone signifly/olalompa-jumping-game.git
 ```
 
 Go to the project directory
 
 ```bash
-cd flappy-bird
+cd olalompa-jumping-game
 ```
 
 Install dependencies

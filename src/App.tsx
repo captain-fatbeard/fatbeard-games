@@ -1,9 +1,9 @@
 import './App.css'
-import RunningMan from './assets/components/runningMan'
+import Game from './components/game'
 
 function App() {
   return (
-    <RunningMan />
+    <Game />
   )
 }
 
