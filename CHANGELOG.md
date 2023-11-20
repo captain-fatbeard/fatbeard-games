@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.6 (2023-11-20)
+
+
+### Features
+
+* add flappy bird game component ([fe40942](https://github.com/signifly/olalompa-jumping-game/commit/fe40942f3728643ec156e143bf52ede550a0b6b2))
+* add logo and game tweeks ([1ea6fdc](https://github.com/signifly/olalompa-jumping-game/commit/1ea6fdc08449f6c30643d6efdf6f68ba0c149b37))
+* add running man game created with phaser js ([00c1939](https://github.com/signifly/olalompa-jumping-game/commit/00c1939dfb502eb6c7b5736a02a1db8906433943))
+* add svg assets and background sprite ([be70386](https://github.com/signifly/olalompa-jumping-game/commit/be703862a4332e4f48ac84de32385d97a3458bdc))
+* **flappy-bird:** tweek game ([2491004](https://github.com/signifly/olalompa-jumping-game/commit/249100498d2e19f67eaccdd938184216f3c4d25e))
+* game updates ([4f91bac](https://github.com/signifly/olalompa-jumping-game/commit/4f91bacf1e945401a2a44f3829ebfa288d75ecee))
+* redo naming for Ola Lompa ([52ae6e1](https://github.com/signifly/olalompa-jumping-game/commit/52ae6e11362353674df4f4ea9ccd73e0ea9afd6c))
+* reorganize files and add gameRunning and gameOver states ([3aa3975](https://github.com/signifly/olalompa-jumping-game/commit/3aa39753ef1cf44786d44b5e914ee1a717580f2a))
+* vite init ([553405a](https://github.com/signifly/olalompa-jumping-game/commit/553405a56091b0c350fcf7b721bc5c40ad01888c))
+
+
+### Bug Fixes
+
+* React Hook useEffect has missing dependencies ([ca8508e](https://github.com/signifly/olalompa-jumping-game/commit/ca8508e76f3540cf5c7957a6ce2e14b1dd682c56))
+* **typescript:** Property 'getContext' does not exist on type 'never' ([4562fdf](https://github.com/signifly/olalompa-jumping-game/commit/4562fdf98d815e90577109dfe408578aac4b6366))
+
 ### [0.0.5](https://github.com/captain-fatbeard/fatbeard-games/compare/v0.0.4...v0.0.5) (2023-11-14)
 
 
