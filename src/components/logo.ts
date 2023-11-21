@@ -1,12 +1,12 @@
-import type Phaser from 'phaser'
+import type { MainScene } from '../main-scene'
 import logo from './../assets/logo.svg'
 
 export class Logo {
-  preload(scene: Phaser.Scene) {
+  preload(scene: MainScene) {
     scene.load.svg('logo', logo, { width: 200, height: 200 })
   }
 
-  create(scene: Phaser.Scene) {
+  create(scene: MainScene) {
     const gameDimentions = scene.game.scale.gameSize
 
     const logo = scene.add.image(
@@ -22,9 +22,9 @@ export class Logo {
     return logo
   }
 
-  update(scene: Phaser.Scene, gameOver: boolean) {
+  update(scene: MainScene) {
     const elem = scene.children.getByName('logo') as any
-    if (elem && gameOver)
+    if (elem && scene.gameIsOver)
       elem.setVisible(true)
   }
 }

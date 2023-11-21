@@ -1,5 +1,5 @@
 import { Scene } from 'phaser'
-import { Background, GameOver, Logo, Obstacles, Player, Points, Start } from './components'
+import { Background, GameOver, Logo, Obstacles, Player, Points, ScoreElem, Start } from './components'
 
 export class MainScene extends Scene {
   private background: Background
@@ -9,6 +9,14 @@ export class MainScene extends Scene {
   private points: Points
   private obstacles: Obstacles
   private logo: Logo
+  private scoreElem: ScoreElem
+
+  score: number
+  scoreText: any
+  gameIsRunning: boolean
+  gameIsOver: boolean
+
+  stagedPlayer: any
 
   constructor() {
     super()
@@ -19,8 +27,11 @@ export class MainScene extends Scene {
     this.points = new Points()
     this.obstacles = new Obstacles()
     this.logo = new Logo()
+    this.scoreElem = new ScoreElem()
 
-    // this.score = 0
+    this.score = 0
+    this.gameIsRunning = false
+    this.gameIsOver = false
   }
 
   preload() {
@@ -34,18 +45,21 @@ export class MainScene extends Scene {
 
   create() {
     this.background.create(this)
-    const player = this.player.create(this)
+    this.stagedPlayer = this.player.create(this)
     this.start.create(this)
     this.gameOver.create(this)
     this.logo.create(this)
 
-    this.points.create(this, player)
-    this.obstacles.create(this, player)
+    this.points.create(this, this.stagedPlayer)
+    this.scoreElem.create(this)
   }
 
   update() {
-    this.background.update(this, true)
-    this.gameOver.update(this, false)
-    this.logo.update(this, true)
+    this.background.update(this)
+    this.gameOver.update(this)
+    this.logo.update(this)
+    this.points.update(this)
+    this.obstacles.update(this, this.stagedPlayer)
+    this.scoreElem.update(this)
   }
 }

@@ -1,12 +1,6 @@
 // src/main.ts
 import './style.css'
-import * as Phaser from 'phaser'
-import { MainScene } from './main-scene'
-import { gameConfig } from './config'
+import { Game } from 'phaser'
+import { config } from './config'
 
-const config: Phaser.Types.Core.GameConfig = {
-  ...gameConfig,
-  scene: MainScene,
-}
-
-const _game = new Phaser.Game(config)
+const _game = new Game(config)

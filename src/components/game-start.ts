@@ -1,12 +1,12 @@
-import type Phaser from 'phaser'
+import type { MainScene } from '../main-scene'
 import startButton from './../assets/start-button.svg'
 
 export class Start {
-  preload(scene: Phaser.Scene) {
-    scene.load.svg('start-button', startButton, { width: 200, height: 200 })
+  preload(scene: MainScene) {
+    scene.load.svg('start-button', startButton, { width: 296, height: 53 })
   }
 
-  create(scene: Phaser.Scene) {
+  create(scene: MainScene) {
     const gameDimentions = scene.game.scale.gameSize
 
     const button = scene.add.image(
@@ -29,8 +29,7 @@ export class Start {
 
     button.on('pointerdown', () => {
       button.destroy()
-
-      // gameIsRunning = true
+      scene.gameIsRunning = true
     })
 
     return button

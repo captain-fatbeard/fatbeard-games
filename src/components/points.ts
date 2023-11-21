@@ -1,49 +1,52 @@
 import type Phaser from 'phaser'
+import type { MainScene } from '../main-scene'
 import pointImage from './../assets/point.svg'
 
-function createPoint(scene: Phaser.Scene, gameDimentions: Phaser.Structs.Size, player: Phaser.Physics.Arcade.Sprite) {
-  const point = spawn.call(scene, gameDimentions)
-
-  const handleCollision = () => {
-    console.log('score')
-    point.destroy()
-    createPoint(scene, gameDimentions, player) // Call the common function to recreate the point
-  }
-
-  scene.physics.add.overlap(player, point, handleCollision, undefined, scene)
-}
-
-function spawn(this: Phaser.Scene, gameDimentions: Phaser.Structs.Size) {
-  const elem = this.add.image(
-    gameDimentions.width + 200 / 2,
-    gameDimentions.height - 200,
-    'point',
-  ) as any
-  elem.setOrigin(1)
-  elem.setScale(0.5)
-  elem.setName('point')
-
-  this.tweens.add({
-    targets: elem,
-    x: -100,
-    duration: 5000,
-    repeat: -1,
-  })
-
-  this.physics.world.enable(elem)
-  elem.body.setAllowGravity(false)
-
-  return elem
-}
-
 export class Points {
-  preload(scene: Phaser.Scene) {
+  preload(scene: MainScene) {
     scene.load.svg('point', pointImage, { width: 248, height: 240 })
   }
 
-  create(scene: Phaser.Scene, player: Phaser.Physics.Arcade.Sprite) {
+  create(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
     const gameDimentions = scene.game.scale.gameSize
 
     createPoint(scene, gameDimentions, player)
   }
+
+  update(scene: MainScene) {
+    const elem = scene.children.getByName('point') as Phaser.GameObjects.Image
+    if (elem && scene.gameIsRunning)
+      elem.setX(elem.x -= 5)
+  }
+}
+
+function createPoint(scene: MainScene, gameDimentions: Phaser.Structs.Size, player: Phaser.Physics.Arcade.Sprite) {
+  const elem = spawn.call(scene, gameDimentions)
+
+  const handleCollision = () => {
+    scene.score += 1
+    scene.scoreText.setText(`score: ${scene.score}`)
+
+    elem.destroy()
+    createPoint(scene, gameDimentions, player)
+  }
+
+  scene.physics.add.overlap(player, elem, handleCollision, undefined, scene)
+}
+
+function spawn(this: MainScene, gameDimentions: Phaser.Structs.Size) {
+  const elem = this.add.image(
+    gameDimentions.width + 200,
+    gameDimentions.height - 200,
+    'point',
+  ) as Phaser.GameObjects.Image
+  elem.setOrigin(1)
+  elem.setScale(0.5)
+  elem.setName('point')
+
+  this.physics.world.enable(elem)
+  const body = elem.body as Phaser.Physics.Arcade.Body
+  body.setAllowGravity(false)
+
+  return elem
 }

@@ -1,13 +1,14 @@
 import type Phaser from 'phaser'
+import type { MainScene } from '../main-scene'
 
 export class GameOver {
-  create(scene: Phaser.Scene) {
+  create(scene: MainScene) {
     const gameDimentions = scene.game.scale.gameSize
 
     const gameOverText = scene.add.text(
       gameDimentions.width / 2,
       gameDimentions.height / 2,
-      'Game Over',
+      `Game Over`,
       {
         fontSize: '32px',
         color: '#ff0000',
@@ -18,9 +19,9 @@ export class GameOver {
     gameOverText.setName('gameOver')
   }
 
-  update(scene: Phaser.Scene, gameOver: boolean) {
+  update(scene: MainScene) {
     const elem = scene.children.getByName('gameOver') as Phaser.GameObjects.Text
-    if (elem && gameOver && !elem.visible && !scene.physics.world.isPaused)
+    if (elem && scene.gameIsOver && !elem.visible && !scene.physics.world.isPaused)
       elem.setVisible(true)
   }
 }

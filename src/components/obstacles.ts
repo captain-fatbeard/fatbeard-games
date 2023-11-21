@@ -1,45 +1,52 @@
 import type Phaser from 'phaser'
+import type { MainScene } from '../main-scene'
 import obstacleImage from './../assets/obstacle.svg'
 
 export class Obstacles {
-  preload(scene: Phaser.Scene) {
+  preload(scene: MainScene) {
     scene.load.svg('obstacle', obstacleImage, { width: 173, height: 471 })
   }
 
-  create(scene: Phaser.Scene, player: Phaser.Physics.Arcade.Sprite) {
-    const obstacle = spawnObstacle.call(scene)
+  update(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
+    const elem = scene.children.getByName('obstacle') as Phaser.GameObjects.Image
 
-    scene.physics.add.overlap(player, obstacle, handleCollision, undefined, this)
+    if (!elem && scene.gameIsRunning)
+      createObstacle(scene, player)
+
+    if (elem && scene.gameIsRunning)
+      elem.setX(elem.x -= 10)
+
+    if (elem && scene.gameIsRunning && elem.x < 0)
+      elem.destroy()
   }
 }
 
-function spawnObstacle(this: Phaser.Scene) {
+function createObstacle(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
+  const point = spawn.call(scene)
+
+  const handleCollision = () => {
+    scene.gameIsOver = true
+    scene.gameIsRunning = false
+  }
+
+  scene.physics.add.overlap(player, point, handleCollision, undefined, scene)
+}
+
+function spawn(this: MainScene) {
   const gameDimentions = this.game.scale.gameSize
 
-  const obstacle = this.add.image(
+  const elem = this.add.image(
     gameDimentions.width + 200 / 2,
     gameDimentions.height,
     'obstacle',
-  ) as any
-  obstacle.setOrigin(1)
-  obstacle.setScale(0.5)
+  ) as Phaser.GameObjects.Image
+  elem.setOrigin(1)
+  elem.setScale(0.5)
+  elem.setName('obstacle')
 
-  this.tweens.add({
-    targets: obstacle,
-    x: -100,
-    duration: 3000,
-    repeat: -1,
-  })
+  this.physics.world.enable(elem)
+  const body = elem.body as Phaser.Physics.Arcade.Body
+  body.setAllowGravity(false)
 
-  this.physics.world.enable(obstacle)
-  obstacle.body.setAllowGravity(false)
-
-  return obstacle
-}
-
-function handleCollision(this: Phaser.Scene) {
-  // gameOver = true
-  // game.scene.pause('default')
-
-  console.log('game over')
+  return elem
 }

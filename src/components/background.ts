@@ -1,12 +1,12 @@
-import type Phaser from 'phaser'
+import type { MainScene } from '../main-scene'
 import waves from './../assets/waves.svg'
 
 export class Background {
-  preload(scene: Phaser.Scene) {
+  preload(scene: MainScene) {
     scene.load.svg('waves', waves, { width: scene.game.scale.gameSize.width })
   }
 
-  create(scene: Phaser.Scene) {
+  create(scene: MainScene) {
     const gameDimentions = scene.game.scale.gameSize
 
     const background = scene.add.tileSprite(0, gameDimentions.height - 200, gameDimentions.width, gameDimentions.height, 'waves')
@@ -16,9 +16,9 @@ export class Background {
     background.setTilePosition(background.tilePositionX - 2, 0)
   }
 
-  update(scene: Phaser.Scene, gameIsRunning: boolean) {
+  update(scene: MainScene) {
     const background = scene.children.getByName('background') as any
-    if (background && gameIsRunning)
+    if (background && scene.gameIsRunning)
       background.setTilePosition(background.tilePositionX + 7, 0)
   }
 }

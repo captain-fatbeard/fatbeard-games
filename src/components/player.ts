@@ -1,48 +1,52 @@
-import type Phaser from 'phaser'
+import type { MainScene } from '../main-scene'
 import charactor from './../assets/charactor.svg'
 
 export class Player {
-  preload(scene: Phaser.Scene) {
+  preload(scene: MainScene) {
     scene.load.svg('charactor', charactor, { width: 243, height: 272 })
   }
 
-  create(scene: Phaser.Scene) {
-    const player = scene.add.image(
+  create(scene: MainScene) {
+    const elem = scene.add.image(
       300,
       scene.game.config.height as number,
       'charactor',
-    ) as any
-    player.setOrigin(1)
-    player.setScale(1)
+    ) as Phaser.GameObjects.Image
+    elem.setOrigin(1)
+    elem.setScale(1)
 
-    const playerBody = scene.add.rectangle(
+    const colliderElem = scene.add.rectangle(
       220,
       scene.game.config.height as number,
       150, // Set the width of the player rectangle
-      player.height,
+      elem.height,
       0x00FF00, // Set the color of the player rectangle
-    ) as any
-    playerBody.setOrigin(1)
-    playerBody.setScale(1)
-    playerBody.setAlpha(0.2)
+    ) as Phaser.GameObjects.Rectangle
+    colliderElem.setOrigin(1)
+    colliderElem.setScale(1)
+    colliderElem.setAlpha(0.2)
 
-    scene.physics.world.enable(player)
-    scene.physics.world.enable(playerBody)
+    scene.physics.world.enable(elem)
+    scene.physics.world.enable(colliderElem)
 
-    if (player.body) {
-      player.body.setBounce(0.1)
-      player.body.setCollideWorldBounds(true)
-      playerBody.body.setBounce(0.1)
-      playerBody.body.setCollideWorldBounds(true)
-    }
+    const elemBody = elem.body as Phaser.Physics.Arcade.Body
+    elemBody.setBounce(0.1)
+    elemBody.setCollideWorldBounds(true)
+
+    const colliderElemBody = colliderElem.body as Phaser.Physics.Arcade.Body
+    colliderElemBody.setBounce(0.1)
+    colliderElemBody.setCollideWorldBounds(true)
 
     scene.input.on('pointerdown', () => {
-      if (player.body && player.body.velocity.y < 2 && player.body.velocity.y > -2)
-        player.body.setVelocityY(-600)
-      if (playerBody.body && playerBody.body.velocity.y < 2 && playerBody.body.velocity.y > -2)
-        playerBody.body.setVelocityY(-600)
+      if (scene.gameIsOver || !colliderElemBody)
+        return
+
+      if (elemBody.velocity.y < 2 && elemBody.velocity.y > -2) {
+        elemBody.setVelocityY(-600)
+        colliderElemBody.setVelocityY(-600)
+      }
     })
 
-    return playerBody
+    return colliderElemBody
   }
 }
