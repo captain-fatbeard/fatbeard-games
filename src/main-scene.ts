@@ -15,7 +15,6 @@ export class MainScene extends Scene {
   scoreText: any
   gameIsRunning: boolean
   gameIsOver: boolean
-
   stagedPlayer: any
 
   constructor() {
@@ -49,8 +48,6 @@ export class MainScene extends Scene {
     this.start.create(this)
     this.gameOver.create(this)
     this.logo.create(this)
-
-    this.points.create(this, this.stagedPlayer)
     this.scoreElem.create(this)
   }
 
@@ -58,7 +55,7 @@ export class MainScene extends Scene {
     this.background.update(this)
     this.gameOver.update(this)
     this.logo.update(this)
-    this.points.update(this)
+    this.points.update(this, this.stagedPlayer)
     this.obstacles.update(this, this.stagedPlayer)
     this.scoreElem.update(this)
   }

@@ -3,7 +3,7 @@ import { colors } from '../config'
 
 export class ScoreElem {
   create(scene: MainScene) {
-    const elem = scene.scoreText = scene.add.text(16, 16, 'score: 0', { fontSize: '32px', color: colors.red })
+    const elem = scene.scoreText = scene.add.text(16, 16, 'score: 0', { fontSize: '20px', color: colors.red })
     elem.setVisible(false)
     elem.setName('scoreElem')
   }

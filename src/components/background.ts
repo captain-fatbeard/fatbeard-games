@@ -3,17 +3,17 @@ import waves from './../assets/waves.svg'
 
 export class Background {
   preload(scene: MainScene) {
-    scene.load.svg('waves', waves, { width: scene.game.scale.gameSize.width })
+    const gameDimentions = scene.game.scale.gameSize
+    scene.load.svg('waves', waves, { width: scene.game.scale.gameSize.width, height: gameDimentions.height / 3 })
   }
 
   create(scene: MainScene) {
     const gameDimentions = scene.game.scale.gameSize
-
-    const background = scene.add.tileSprite(0, gameDimentions.height - 200, gameDimentions.width, gameDimentions.height, 'waves')
-    background.setName('background')
-    background.setOrigin(0, 0)
-    background.setTileScale(1, 1)
-    background.setTilePosition(background.tilePositionX - 2, 0)
+    const elem = scene.add.tileSprite(0, gameDimentions.height - gameDimentions.height / 4, gameDimentions.width, gameDimentions.height / 3, 'waves')
+    elem.setName('background')
+    elem.setOrigin(0, 0)
+    elem.setTileScale(1, 1)
+    elem.setTilePosition(elem.tilePositionX - 2, 0)
   }
 
   update(scene: MainScene) {

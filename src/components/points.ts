@@ -1,40 +1,48 @@
 import type Phaser from 'phaser'
 import type { MainScene } from '../main-scene'
-import pointImage from './../assets/point.svg'
+import elemImage from './../assets/point.svg'
 
 export class Points {
   preload(scene: MainScene) {
-    scene.load.svg('point', pointImage, { width: 248, height: 240 })
-  }
-
-  create(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
     const gameDimentions = scene.game.scale.gameSize
+    const scaledHeight = gameDimentions.height / 2
+    // const scaledWidth = (scaledHeight / height) * width
+    const scaledWidth = (scaledHeight / 240) * 248
 
-    createPoint(scene, gameDimentions, player)
+    scene.load.svg('point', elemImage, { width: scaledWidth, height: scaledHeight })
   }
 
-  update(scene: MainScene) {
+  update(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
     const elem = scene.children.getByName('point') as Phaser.GameObjects.Image
+
+    if (!elem && scene.gameIsRunning)
+      createElem(scene, player)
+
     if (elem && scene.gameIsRunning)
-      elem.setX(elem.x -= 5)
+      elem.setX(elem.x -= 4)
+
+    if (elem && (scene.gameIsRunning && elem.x < 0) || elem && scene.gameIsOver)
+      elem.destroy()
   }
 }
 
-function createPoint(scene: MainScene, gameDimentions: Phaser.Structs.Size, player: Phaser.Physics.Arcade.Sprite) {
-  const elem = spawn.call(scene, gameDimentions)
+function createElem(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
+  const point = spawn.call(scene)
 
   const handleCollision = () => {
     scene.score += 1
     scene.scoreText.setText(`score: ${scene.score}`)
 
+    const elem = scene.children.getByName('point') as Phaser.GameObjects.Image
     elem.destroy()
-    createPoint(scene, gameDimentions, player)
   }
 
-  scene.physics.add.overlap(player, elem, handleCollision, undefined, scene)
+  scene.physics.add.overlap(player, point, handleCollision, undefined, scene)
 }
 
-function spawn(this: MainScene, gameDimentions: Phaser.Structs.Size) {
+function spawn(this: MainScene) {
+  const gameDimentions = this.game.scale.gameSize
+
   const elem = this.add.image(
     gameDimentions.width + 200,
     gameDimentions.height - 200,

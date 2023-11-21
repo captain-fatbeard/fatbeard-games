@@ -3,22 +3,31 @@ import charactor from './../assets/charactor.svg'
 
 export class Player {
   preload(scene: MainScene) {
-    scene.load.svg('charactor', charactor, { width: 243, height: 272 })
+    const gameDimentions = scene.game.scale.gameSize
+    const scaledHeight = gameDimentions.height / 3
+    // const scaledWidth = (scaledHeight / height) * width
+    const scaledWidth = (scaledHeight / 272) * 243
+
+    scene.load.svg('charactor', charactor, { width: scaledWidth, height: scaledHeight })
   }
 
   create(scene: MainScene) {
+    const gameDimentions = scene.game.scale.gameSize
+    const scaledHeight = gameDimentions.height / 3
+    const scaledWidth = (scaledHeight / 272) * 243
+
     const elem = scene.add.image(
-      300,
-      scene.game.config.height as number,
+      scaledWidth,
+      gameDimentions.height,
       'charactor',
     ) as Phaser.GameObjects.Image
-    elem.setOrigin(1)
+    elem.setOrigin(0.5)
     elem.setScale(1)
 
     const colliderElem = scene.add.rectangle(
-      220,
-      scene.game.config.height as number,
-      150, // Set the width of the player rectangle
+      scaledWidth,
+      gameDimentions.height,
+      scaledWidth / 2, // Set the width of the player rectangle
       elem.height,
       0x00FF00, // Set the color of the player rectangle
     ) as Phaser.GameObjects.Rectangle

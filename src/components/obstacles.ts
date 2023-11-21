@@ -4,7 +4,12 @@ import obstacleImage from './../assets/obstacle.svg'
 
 export class Obstacles {
   preload(scene: MainScene) {
-    scene.load.svg('obstacle', obstacleImage, { width: 173, height: 471 })
+    const gameDimentions = scene.game.scale.gameSize
+    const scaledHeight = gameDimentions.height / 2
+    // const scaledWidth = (scaledHeight / height) * width
+    const scaledWidth = (scaledHeight / 471) * 173
+
+    scene.load.svg('obstacle', obstacleImage, { width: scaledWidth, height: scaledHeight })
   }
 
   update(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
@@ -14,7 +19,7 @@ export class Obstacles {
       createObstacle(scene, player)
 
     if (elem && scene.gameIsRunning)
-      elem.setX(elem.x -= 10)
+      elem.setX(elem.x -= 7)
 
     if (elem && scene.gameIsRunning && elem.x < 0)
       elem.destroy()
