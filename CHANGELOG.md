@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/signifly/olalompa-jumping-game/compare/v0.0.6...v0.0.7) (2023-11-21)
+
+
+### Features
+
+* add full width and height to game ([a82e906](https://github.com/signifly/olalompa-jumping-game/commit/a82e906c8163c369b32b13606b1b6dd52ee1ae88))
+* **player:** add rectangle for colition detection ([a6f36de](https://github.com/signifly/olalompa-jumping-game/commit/a6f36de826697d2db8cb3d2af4400c55e290a8ad))
+
+
+### Bug Fixes
+
+* obstacles ([dd427b4](https://github.com/signifly/olalompa-jumping-game/commit/dd427b472287a0fc7011e440506a776e8002d804))
+
 ### 0.0.6 (2023-11-20)
 
 
