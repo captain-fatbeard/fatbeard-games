@@ -1,12 +1,12 @@
 import type Phaser from 'phaser'
 import charactor from './../assets/charactor.svg'
 
-export default class Player {
-  static preload(scene: Phaser.Scene) {
+export class Player {
+  preload(scene: Phaser.Scene) {
     scene.load.svg('charactor', charactor, { width: 243, height: 272 })
   }
 
-  static create(scene: Phaser.Scene) {
+  create(scene: Phaser.Scene) {
     const player = scene.add.image(
       300,
       scene.game.config.height as number,

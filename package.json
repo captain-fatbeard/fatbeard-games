@@ -1,33 +1,24 @@
 {
   "name": "olalompa-jumping-game",
   "type": "module",
-  "version": "0.0.6",
+  "version": "0.0.5",
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
     "preview": "vite preview",
-    "release": "standard-version"
+    "release": "standard-version",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "phaser": "^3.70.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "phaser": "^3.70.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^1.1.0",
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "@vitejs/plugin-react": "^4.0.3",
-    "eslint": "^8.53.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
+    "@antfu/eslint-config": "^2.0.0",
+    "eslint": "^8.54.0",
     "standard-version": "^9.5.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "typescript": "^5.2.2",
+    "vite": "^5.0.0"
   }
 }
