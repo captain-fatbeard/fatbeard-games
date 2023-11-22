@@ -53,13 +53,17 @@ export class Player {
     hitboxBody.setBounce(0.1)
     hitboxBody.setCollideWorldBounds(true)
 
+    const screenHeight = gameDimentions.height
+
+    const targetHeight = 0 // The top of the screen
+    const jumpHeight = screenHeight - targetHeight
     scene.input.on('pointerdown', () => {
       if (scene.gameIsOver || !hitboxBody)
         return
 
       if (elemBody.velocity.y < 2 && elemBody.velocity.y > -2) {
-        elemBody.setVelocityY(-600)
-        hitboxBody.setVelocityY(-600)
+        elemBody.setVelocityY(-jumpHeight)
+        hitboxBody.setVelocityY(-jumpHeight)
       }
     })
 
