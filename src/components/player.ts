@@ -27,8 +27,6 @@ export class Player {
       gameDimentions.height,
       'charactor',
     ) as Phaser.GameObjects.Image
-
-    elem.setOrigin(0.5)
     elem.setScale(scale)
 
     const hitbox = scene.add.rectangle(
@@ -38,7 +36,6 @@ export class Player {
       image.height,
       colors.hitbox,
     ) as Phaser.GameObjects.Rectangle
-    hitbox.setOrigin(1)
     hitbox.setScale(scale)
     hitbox.setAlpha(0.2)
 
