@@ -1,61 +1,68 @@
+import { colors } from '../config'
+import { calculateScale } from '../helpers/scale'
 import type { MainScene } from '../main-scene'
-import charactor from './../assets/charactor.svg'
+import charactor from './../assets/charactor.png'
 
 export class Player {
   preload(scene: MainScene) {
-    const gameDimentions = scene.game.scale.gameSize
-    const scaledHeight = gameDimentions.height / 3
-    // const scaledWidth = (scaledHeight / height) * width
-    const scaledWidth = (scaledHeight / 272) * 243
-
-    scene.load.svg('charactor', charactor, { width: scaledWidth, height: scaledHeight })
+    scene.load.image('charactor', charactor)
   }
 
   create(scene: MainScene) {
     const gameDimentions = scene.game.scale.gameSize
-    const scaledHeight = gameDimentions.height / 3
-    const scaledWidth = (scaledHeight / 272) * 243
+    const image = {
+      width: 243,
+      height: 272,
+    }
+
+    const scale = calculateScale({
+      screenHeight: gameDimentions.height,
+      imageWidth: image.width,
+      imageHeight: image.height,
+      fractionOfScreen: 1 / 3,
+    })
 
     const elem = scene.add.image(
-      scaledWidth,
+      image.width * scale,
       gameDimentions.height,
       'charactor',
     ) as Phaser.GameObjects.Image
-    elem.setOrigin(0.5)
-    elem.setScale(1)
 
-    const colliderElem = scene.add.rectangle(
-      scaledWidth,
+    elem.setOrigin(0.5)
+    elem.setScale(scale)
+
+    const hitbox = scene.add.rectangle(
+      image.width * scale,
       gameDimentions.height,
-      scaledWidth / 2, // Set the width of the player rectangle
-      elem.height,
-      0x00FF00, // Set the color of the player rectangle
+      image.width / 2,
+      image.height,
+      colors.hitbox,
     ) as Phaser.GameObjects.Rectangle
-    colliderElem.setOrigin(1)
-    colliderElem.setScale(1)
-    colliderElem.setAlpha(0.2)
+    hitbox.setOrigin(1)
+    hitbox.setScale(scale)
+    hitbox.setAlpha(0.2)
 
     scene.physics.world.enable(elem)
-    scene.physics.world.enable(colliderElem)
+    scene.physics.world.enable(hitbox)
 
     const elemBody = elem.body as Phaser.Physics.Arcade.Body
     elemBody.setBounce(0.1)
     elemBody.setCollideWorldBounds(true)
 
-    const colliderElemBody = colliderElem.body as Phaser.Physics.Arcade.Body
-    colliderElemBody.setBounce(0.1)
-    colliderElemBody.setCollideWorldBounds(true)
+    const hitboxBody = hitbox.body as Phaser.Physics.Arcade.Body
+    hitboxBody.setBounce(0.1)
+    hitboxBody.setCollideWorldBounds(true)
 
     scene.input.on('pointerdown', () => {
-      if (scene.gameIsOver || !colliderElemBody)
+      if (scene.gameIsOver || !hitboxBody)
         return
 
       if (elemBody.velocity.y < 2 && elemBody.velocity.y > -2) {
         elemBody.setVelocityY(-600)
-        colliderElemBody.setVelocityY(-600)
+        hitboxBody.setVelocityY(-600)
       }
     })
 
-    return colliderElemBody
+    return hitboxBody
   }
 }

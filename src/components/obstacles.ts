@@ -1,15 +1,11 @@
 import type Phaser from 'phaser'
 import type { MainScene } from '../main-scene'
-import obstacleImage from './../assets/obstacle.svg'
+import { calculateScale } from '../helpers/scale'
+import obstacleImage from './../assets/obstacle.png'
 
 export class Obstacles {
   preload(scene: MainScene) {
-    const gameDimentions = scene.game.scale.gameSize
-    const scaledHeight = gameDimentions.height / 2
-    // const scaledWidth = (scaledHeight / height) * width
-    const scaledWidth = (scaledHeight / 471) * 173
-
-    scene.load.svg('obstacle', obstacleImage, { width: scaledWidth, height: scaledHeight })
+    scene.load.image('obstacle', obstacleImage)
   }
 
   update(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
@@ -39,6 +35,16 @@ function createObstacle(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) 
 
 function spawn(this: MainScene) {
   const gameDimentions = this.game.scale.gameSize
+  const image = {
+    width: 173,
+    height: 471,
+  }
+  const scale = calculateScale({
+    screenHeight: gameDimentions.height,
+    imageWidth: image.width,
+    imageHeight: image.height,
+    fractionOfScreen: 1 / 3,
+  })
 
   const elem = this.add.image(
     gameDimentions.width + 200 / 2,
@@ -46,7 +52,7 @@ function spawn(this: MainScene) {
     'obstacle',
   ) as Phaser.GameObjects.Image
   elem.setOrigin(1)
-  elem.setScale(0.5)
+  elem.setScale(scale)
   elem.setName('obstacle')
 
   this.physics.world.enable(elem)

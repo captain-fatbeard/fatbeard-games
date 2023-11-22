@@ -1,15 +1,10 @@
 import type Phaser from 'phaser'
 import type { MainScene } from '../main-scene'
-import elemImage from './../assets/point.svg'
+import pointImage from './../assets/point.png'
 
 export class Points {
   preload(scene: MainScene) {
-    const gameDimentions = scene.game.scale.gameSize
-    const scaledHeight = gameDimentions.height / 2
-    // const scaledWidth = (scaledHeight / height) * width
-    const scaledWidth = (scaledHeight / 240) * 248
-
-    scene.load.svg('point', elemImage, { width: scaledWidth, height: scaledHeight })
+    scene.load.image('point', pointImage)
   }
 
   update(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {

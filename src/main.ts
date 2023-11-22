@@ -1,8 +1,7 @@
 import './style.css'
-import { Game } from 'phaser'
+import Phaser from 'phaser'
 import { config } from './config'
 
-document.addEventListener('DOMContentLoaded', () => {
-  // eslint-disable-next-line no-new
-  new Game(config)
-})
+const _game = new Phaser.Game(config)
+
+export default _game

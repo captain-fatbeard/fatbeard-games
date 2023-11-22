@@ -6,9 +6,9 @@ export class MainScene extends Scene {
   private player: Player
   private start: Start
   private gameOver: GameOver
+  private logo: Logo
   private points: Points
   private obstacles: Obstacles
-  private logo: Logo
   private scoreElem: ScoreElem
 
   score: number
@@ -23,9 +23,9 @@ export class MainScene extends Scene {
     this.player = new Player()
     this.start = new Start()
     this.gameOver = new GameOver()
+    this.logo = new Logo()
     this.points = new Points()
     this.obstacles = new Obstacles()
-    this.logo = new Logo()
     this.scoreElem = new ScoreElem()
 
     this.score = 0

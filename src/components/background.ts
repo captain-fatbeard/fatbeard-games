@@ -1,10 +1,12 @@
 import type { MainScene } from '../main-scene'
-import waves from './../assets/waves.svg'
+import waves from './../assets/waves.png'
 
 export class Background {
   preload(scene: MainScene) {
-    const gameDimentions = scene.game.scale.gameSize
-    scene.load.svg('waves', waves, { width: scene.game.scale.gameSize.width, height: gameDimentions.height / 3 })
+    // const gameDimentions = scene.game.scale.gameSize
+    // scene.load.svg('waves', waves, { width: scene.game.scale.gameSize.width, height: gameDimentions.height / 3 })
+
+    scene.load.image('waves', waves)
   }
 
   create(scene: MainScene) {

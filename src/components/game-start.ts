@@ -1,9 +1,9 @@
 import type { MainScene } from '../main-scene'
-import startButton from './../assets/start-button.svg'
+import startButton from './../assets/start-button.png'
 
 export class Start {
   preload(scene: MainScene) {
-    scene.load.svg('start-button', startButton, { width: 296, height: 53 })
+    scene.load.image('start-button', startButton)
   }
 
   create(scene: MainScene) {
