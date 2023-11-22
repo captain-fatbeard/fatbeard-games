@@ -14,11 +14,13 @@ export class Obstacles {
     if (!elem && scene.gameIsRunning)
       createObstacle(scene, player)
 
-    if (elem && scene.gameIsRunning)
-      elem.setX(elem.x -= 7)
+    if (elem && scene.gameIsRunning) {
+      const speed = 7 // Adjust the speed as needed
+      elem.setX(elem.x - speed * scene.game.scale.width / 800) // 800 is the base width for the speed reference
 
-    if (elem && scene.gameIsRunning && elem.x < 0)
-      elem.destroy()
+      if (elem.x + elem.width * elem.scaleX < 0)
+        elem.destroy()
+    }
   }
 }
 
