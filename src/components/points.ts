@@ -1,5 +1,6 @@
 import type Phaser from 'phaser'
 import type { MainScene } from '../main-scene'
+import { calculateScale } from '../helpers/scale'
 import pointImage from './../assets/point.png'
 
 export class Points {
@@ -13,8 +14,10 @@ export class Points {
     if (!elem && scene.gameIsRunning)
       createElem(scene, player)
 
-    if (elem && scene.gameIsRunning)
-      elem.setX(elem.x -= 4)
+    if (elem && scene.gameIsRunning) {
+      const speed = 4
+      elem.setX(elem.x - speed * scene.game.scale.width / 800) // 800 is the base width for the speed reference
+    }
 
     if (elem && (scene.gameIsRunning && elem.x < 0) || elem && scene.gameIsOver)
       elem.destroy()
@@ -37,6 +40,16 @@ function createElem(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
 
 function spawn(this: MainScene) {
   const gameDimentions = this.game.scale.gameSize
+  const image = {
+    width: 243,
+    height: 272,
+  }
+  const scale = calculateScale({
+    screenHeight: gameDimentions.height,
+    imageWidth: image.width,
+    imageHeight: image.height,
+    fractionOfScreen: 1 / 3,
+  })
 
   const elem = this.add.image(
     gameDimentions.width + 200,
@@ -44,7 +57,7 @@ function spawn(this: MainScene) {
     'point',
   ) as Phaser.GameObjects.Image
   elem.setOrigin(1)
-  elem.setScale(0.5)
+  elem.setScale(scale)
   elem.setName('point')
 
   this.physics.world.enable(elem)
