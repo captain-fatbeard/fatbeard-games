@@ -54,6 +54,7 @@ export class MainScene extends Scene {
 
   update() {
     this.waves.update(this)
+    this.player.update(this)
     this.gameOver.update(this)
     this.logo.update(this)
     this.points.update(this, this.stagedPlayer)
