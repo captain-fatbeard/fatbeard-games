@@ -1,8 +1,8 @@
 import { Scene } from 'phaser'
-import { Background, GameOver, Logo, Obstacles, Player, Points, ScoreElem, Start } from './components'
+import { GameOver, Logo, Obstacles, Player, Points, ScoreElem, Start, Waves } from './components'
 
 export class MainScene extends Scene {
-  private background: Background
+  private waves: Waves
   private player: Player
   private start: Start
   private gameOver: GameOver
@@ -19,7 +19,7 @@ export class MainScene extends Scene {
 
   constructor() {
     super()
-    this.background = new Background()
+    this.waves = new Waves()
     this.player = new Player()
     this.start = new Start()
     this.gameOver = new GameOver()
@@ -34,7 +34,7 @@ export class MainScene extends Scene {
   }
 
   preload() {
-    this.background.preload(this)
+    this.waves.preload(this)
     this.player.preload(this)
     this.start.preload(this)
     this.logo.preload(this)
@@ -43,7 +43,7 @@ export class MainScene extends Scene {
   }
 
   create() {
-    this.background.create(this)
+    this.waves.create(this)
     this.stagedPlayer = this.player.create(this)
     this.start.create(this)
     this.gameOver.create(this)
@@ -52,7 +52,7 @@ export class MainScene extends Scene {
   }
 
   update() {
-    this.background.update(this)
+    this.waves.update(this)
     this.gameOver.update(this)
     this.logo.update(this)
     this.points.update(this, this.stagedPlayer)
