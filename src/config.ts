@@ -7,9 +7,9 @@ const colors = {
   white: '#FFFFFF',
   black: '#000000',
   blue: '#000F9F',
-  lightBlue: '#ADD8E6',
+  lightBlue: 0xADD8E6,
   hitbox: 0x00FF00,
-  background: '#FFFFFF',
+  background: 0xFFFFFF,
 }
 
 const config = {
@@ -24,7 +24,7 @@ const config = {
     },
   },
   scene: MainScene,
-  backgroundColor: colors.background,
+  backgroundColor: window.location.href.includes('xmas') ? colors.lightBlue : colors.background,
 }
 
 export { config, colors }

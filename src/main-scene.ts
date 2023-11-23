@@ -1,5 +1,5 @@
 import { Scene } from 'phaser'
-import { GameOver, Logo, Obstacles, Player, Points, ScoreElem, Start, Waves } from './components'
+import { GameOver, Logo, Obstacles, Player, Points, ScoreElem, Snow, Start, Waves } from './components'
 
 export class MainScene extends Scene {
   private waves: Waves
@@ -10,6 +10,8 @@ export class MainScene extends Scene {
   private points: Points
   private obstacles: Obstacles
   private scoreElem: ScoreElem
+  private snow: Snow
+  private xmas: boolean = window.location.href.includes('xmas')
 
   score: number
   gameIsRunning: boolean
@@ -26,6 +28,7 @@ export class MainScene extends Scene {
     this.points = new Points()
     this.obstacles = new Obstacles()
     this.scoreElem = new ScoreElem()
+    this.snow = new Snow()
 
     this.score = 0
     this.gameIsRunning = false
@@ -41,6 +44,8 @@ export class MainScene extends Scene {
     this.obstacles.preload(this)
     this.scoreElem.preload(this)
     this.gameOver.preload(this)
+    if (this.xmas)
+      this.snow.preload(this)
   }
 
   create() {
@@ -50,6 +55,8 @@ export class MainScene extends Scene {
     this.gameOver.create(this)
     this.logo.create(this)
     this.scoreElem.create(this)
+    if (this.xmas)
+      this.snow.create(this)
   }
 
   update() {
