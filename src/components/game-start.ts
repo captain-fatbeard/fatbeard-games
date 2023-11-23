@@ -13,9 +13,11 @@ export class Start {
       gameDimentions.width / 2,
       gameDimentions.height / 2,
       'start-button',
-    ).setInteractive() as any
-    button.setOrigin(0.5)
-    button.setScale(1)
+    )
+      .setInteractive()
+      .setOrigin(0.5)
+      .setScale(1)
+      .setName('start') as Phaser.GameObjects.Image
 
     button.on('pointerover', () => {
       button.setTint(0xCCCCCC)
@@ -28,10 +30,21 @@ export class Start {
     })
 
     button.on('pointerdown', () => {
-      button.destroy()
-      scene.gameIsRunning = true
+      setTimeout(() => {
+        scene.gameIsRunning = true
+      }, 200)
     })
 
     return button
+  }
+
+  update(scene: MainScene) {
+    const elem = scene.children.getByName('start') as Phaser.GameObjects.Text
+
+    if (elem && (!scene.gameIsRunning && !scene.gameIsOver))
+      elem.setVisible(true)
+
+    else
+      elem.setVisible(false)
   }
 }

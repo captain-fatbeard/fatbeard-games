@@ -1,4 +1,4 @@
-import { colors } from '../config'
+import { colors, config } from '../config'
 import { calculateScale } from '../helpers/scale'
 import type { MainScene } from '../main-scene'
 import charactor from './../assets/charactor.png'
@@ -26,8 +26,10 @@ export class Player {
       image.width * scale,
       gameDimentions.height,
       'charactor',
-    ) as Phaser.GameObjects.Image
-    elem.setScale(scale)
+    )
+      .setScale(scale) as Phaser.GameObjects.Image
+
+    const hitboxAlpha = config.physics.arcade.debug ? 0.2 : 0
 
     const hitbox = scene.add.rectangle(
       image.width * scale,
@@ -35,9 +37,9 @@ export class Player {
       image.width / 2,
       image.height,
       colors.hitbox,
-    ) as Phaser.GameObjects.Rectangle
-    hitbox.setScale(scale)
-    hitbox.setAlpha(0.2)
+    )
+      .setScale(scale)
+      .setAlpha(hitboxAlpha) as Phaser.GameObjects.Rectangle
 
     scene.physics.world.enable(elem)
     scene.physics.world.enable(hitbox)
@@ -55,10 +57,10 @@ export class Player {
     const targetHeight = 0 // The top of the screen
     const jumpHeight = screenHeight - targetHeight
     scene.input.on('pointerdown', () => {
-      if (scene.gameIsOver || !hitboxBody)
+      if (!scene.gameIsRunning || scene.gameIsOver || !hitboxBody)
         return
 
-      if (elemBody.velocity.y < 2 && elemBody.velocity.y > -2) {
+      if (elemBody.velocity.y < 5 && elemBody.velocity.y > -5) {
         elemBody.setVelocityY(-jumpHeight)
         hitboxBody.setVelocityY(-jumpHeight)
       }

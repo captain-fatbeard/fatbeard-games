@@ -36,6 +36,6 @@ export class Logo {
   update(scene: MainScene) {
     const elem = scene.children.getByName('logo') as any
     if (elem && scene.gameIsOver)
-      elem.setVisible(true)
+      elem.setVisible(false)
   }
 }

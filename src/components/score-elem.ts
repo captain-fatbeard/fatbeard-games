@@ -21,7 +21,7 @@ export class ScoreElem {
 
     const elemImage = scene.add.image(gameDimentions.width - (image.width / 2) / 2, (image.height * scale / 2) / 2, 'point') as Phaser.GameObjects.Image
     elemImage.setVisible(false)
-    elemImage.setName('scoreElem')
+    elemImage.setName('scoreElemImage')
     elemImage.setScale(scale)
   }
 

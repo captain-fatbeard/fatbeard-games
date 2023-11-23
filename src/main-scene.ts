@@ -41,6 +41,7 @@ export class MainScene extends Scene {
     this.points.preload(this)
     this.obstacles.preload(this)
     this.scoreElem.preload(this)
+    this.gameOver.preload(this)
   }
 
   create() {
@@ -59,5 +60,7 @@ export class MainScene extends Scene {
     this.points.update(this, this.stagedPlayer)
     this.obstacles.update(this, this.stagedPlayer)
     this.scoreElem.update(this)
+    this.scoreElem.update(this)
+    this.start.update(this)
   }
 }
