@@ -22,5 +22,5 @@ export function calculateScale({
   // Calculate the scale factor
   const scale = scaledWidth / imageWidth
 
-  return scale
+  return Number(scale.toFixed(2))
 }
