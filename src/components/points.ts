@@ -16,7 +16,10 @@ export class Points {
 
     if (elem && scene.gameIsRunning) {
       const speed = 4
+      const wobbleAmount = 3
+      const wobbleSpeed = 0.01
       elem.setX(elem.x - speed * scene.game.scale.width / 800) // 800 is the base width for the speed reference
+      elem.setAngle(Math.sin(scene.time.now * wobbleSpeed) * wobbleAmount)
     }
 
     if (elem && (scene.gameIsRunning && elem.x < 0) || elem && scene.gameIsOver)
@@ -44,6 +47,9 @@ function spawn(this: MainScene) {
     width: 243,
     height: 272,
   }
+
+  const spawnHeight = Math.floor(Math.random() * gameDimentions.height / 2)
+
   const scale = calculateScale({
     screenHeight: gameDimentions.height,
     imageWidth: image.width,
@@ -53,12 +59,12 @@ function spawn(this: MainScene) {
 
   const elem = this.add.image(
     gameDimentions.width + 200,
-    gameDimentions.height - 200,
+    gameDimentions.height - spawnHeight,
     'point',
-  ) as Phaser.GameObjects.Image
-  elem.setOrigin(1)
-  elem.setScale(scale)
-  elem.setName('point')
+  )
+    .setOrigin(1)
+    .setScale(scale)
+    .setName('point') as Phaser.GameObjects.Image
 
   this.physics.world.enable(elem)
   const body = elem.body as Phaser.Physics.Arcade.Body

@@ -15,8 +15,12 @@ export class Obstacles {
       createObstacle(scene, player)
 
     if (elem && scene.gameIsRunning) {
-      const speed = 7 // Adjust the speed as needed
-      elem.setX(elem.x - speed * scene.game.scale.width / 800) // 800 is the base width for the speed reference
+      const speed = 7
+      const wobbleAmount = 3
+      const wobbleSpeed = 0.01
+
+      elem.setX(elem.x - speed * scene.game.scale.width / 800)
+      elem.setAngle(Math.sin(scene.time.now * wobbleSpeed) * wobbleAmount)
 
       if (elem.x + elem.width * elem.scaleX < 0)
         elem.destroy()
@@ -47,15 +51,16 @@ function spawn(this: MainScene) {
     imageHeight: image.height,
     fractionOfScreen: 1 / 3,
   })
+  const randomScaleMultiplier = 0.8 + Math.random() * 0.4
 
   const elem = this.add.image(
     gameDimentions.width + 200 / 2,
     gameDimentions.height,
     'obstacle',
-  ) as Phaser.GameObjects.Image
-  elem.setOrigin(1)
-  elem.setScale(scale)
-  elem.setName('obstacle')
+  )
+    .setOrigin(1)
+    .setScale(scale * randomScaleMultiplier)
+    .setName('obstacle') as Phaser.GameObjects.Image
 
   this.physics.world.enable(elem)
   const body = elem.body as Phaser.Physics.Arcade.Body
