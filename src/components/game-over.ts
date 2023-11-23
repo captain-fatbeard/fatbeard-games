@@ -8,7 +8,7 @@ export class GameOver {
   }
 
   create(scene: MainScene) {
-    const gameDimentions = scene.game.scale.gameSize
+    const gameDimensions = scene.game.scale.gameSize
     const image = {
       width: 243,
       height: 272,
@@ -16,7 +16,7 @@ export class GameOver {
     const scale = 1
 
     const elem = scene.add.image(
-      gameDimentions.width / 2,
+      gameDimensions.width / 2,
       image.height / 2,
       'gameOver',
     )

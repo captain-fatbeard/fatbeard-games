@@ -7,11 +7,11 @@ export class Start {
   }
 
   create(scene: MainScene) {
-    const gameDimentions = scene.game.scale.gameSize
+    const gameDimensions = scene.game.scale.gameSize
 
     const button = scene.add.image(
-      gameDimentions.width / 2,
-      gameDimentions.height / 2,
+      gameDimensions.width / 2,
+      gameDimensions.height / 2,
       'start-button',
     )
       .setInteractive()

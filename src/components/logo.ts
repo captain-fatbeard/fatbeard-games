@@ -8,20 +8,20 @@ export class Logo {
   }
 
   create(scene: MainScene) {
-    const gameDimentions = scene.game.scale.gameSize
+    const gameDimensions = scene.game.scale.gameSize
     const image = {
       width: 335,
       height: 246,
     }
     const scale = calculateScale({
-      screenHeight: gameDimentions.height,
+      screenHeight: gameDimensions.height,
       imageWidth: image.width,
       imageHeight: image.height,
       fractionOfScreen: 1 / 2,
     })
 
     const logo = scene.add.image(
-      gameDimentions.width / 2 + image.width * scale / 2,
+      gameDimensions.width / 2 + image.width * scale / 2,
       image.height * scale + 10,
       'logo',
     ).setInteractive() as any

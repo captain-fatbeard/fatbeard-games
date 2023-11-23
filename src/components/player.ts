@@ -9,14 +9,14 @@ export class Player {
   }
 
   create(scene: MainScene) {
-    const gameDimentions = scene.game.scale.gameSize
+    const gameDimensions = scene.game.scale.gameSize
     const image = {
       width: 243,
       height: 272,
     }
 
     const scale = calculateScale({
-      screenHeight: gameDimentions.height,
+      screenHeight: gameDimensions.height,
       imageWidth: image.width,
       imageHeight: image.height,
       fractionOfScreen: 1 / 3,
@@ -24,7 +24,7 @@ export class Player {
 
     const elem = scene.add.image(
       image.width * scale,
-      gameDimentions.height,
+      gameDimensions.height,
       'charactor',
     )
       .setScale(scale) as Phaser.GameObjects.Image
@@ -33,7 +33,7 @@ export class Player {
 
     const hitbox = scene.add.rectangle(
       image.width * scale,
-      gameDimentions.height,
+      gameDimensions.height,
       image.width / 2,
       image.height,
       colors.hitbox,
@@ -52,7 +52,7 @@ export class Player {
     hitboxBody.setBounce(0.1)
     hitboxBody.setCollideWorldBounds(true)
 
-    const screenHeight = gameDimentions.height
+    const screenHeight = gameDimensions.height
 
     const targetHeight = 0 // The top of the screen
     const jumpHeight = screenHeight - targetHeight

@@ -8,19 +8,19 @@ export class Waves {
   }
 
   create(scene: MainScene) {
-    const gameDimentions = scene.game.scale.gameSize
+    const gameDimensions = scene.game.scale.gameSize
     const image = {
       width: 1789,
       height: 251,
     }
     const scale = calculateScale({
-      screenHeight: gameDimentions.height,
+      screenHeight: gameDimensions.height,
       imageWidth: image.width,
       imageHeight: image.height,
       fractionOfScreen: 1 / 4,
     })
 
-    const elem = scene.add.tileSprite(0, (gameDimentions.height - image.height * scale), gameDimentions.width, gameDimentions.height, 'waves')
+    const elem = scene.add.tileSprite(0, (gameDimensions.height - image.height * scale), gameDimensions.width, gameDimensions.height, 'waves')
     elem.setName('background')
     elem.setOrigin(0)
     elem.setTileScale(scale)

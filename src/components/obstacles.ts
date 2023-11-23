@@ -40,13 +40,13 @@ function createObstacle(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) 
 }
 
 function spawn(this: MainScene) {
-  const gameDimentions = this.game.scale.gameSize
+  const gameDimensions = this.game.scale.gameSize
   const image = {
     width: 173,
     height: 471,
   }
   const scale = calculateScale({
-    screenHeight: gameDimentions.height,
+    screenHeight: gameDimensions.height,
     imageWidth: image.width,
     imageHeight: image.height,
     fractionOfScreen: 1 / 3,
@@ -54,8 +54,8 @@ function spawn(this: MainScene) {
   const randomScaleMultiplier = 0.8 + Math.random() * 0.4
 
   const elem = this.add.image(
-    gameDimentions.width + 200 / 2,
-    gameDimentions.height,
+    gameDimensions.width + 200 / 2,
+    gameDimensions.height,
     'obstacle',
   )
     .setOrigin(1)
