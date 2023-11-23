@@ -40,6 +40,7 @@ export class MainScene extends Scene {
     this.logo.preload(this)
     this.points.preload(this)
     this.obstacles.preload(this)
+    this.scoreElem.preload(this)
   }
 
   create() {

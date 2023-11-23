@@ -29,7 +29,7 @@ function createElem(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
 
   const handleCollision = () => {
     scene.score += 1
-    scene.scoreText.setText(`score: ${scene.score}`)
+    scene.scoreText.setText(`${scene.score}X`)
 
     const elem = scene.children.getByName('point') as Phaser.GameObjects.Image
     elem.destroy()

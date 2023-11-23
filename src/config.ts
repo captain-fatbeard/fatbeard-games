@@ -6,7 +6,7 @@ const colors = {
   red: '#FF0000',
   white: '#FFFFFF',
   black: '#000000',
-  blue: '#0000FF',
+  blue: '#000F9F',
   lightBlue: '#ADD8E6',
   hitbox: 0x00FF00,
   background: '#FFFFFF',
