@@ -4,34 +4,41 @@ import pointImage from './../assets/point.png'
 
 export class ScoreElem {
   preload(scene: MainScene) {
-    scene.load.image('point', pointImage)
+    scene.load.image('score-image', pointImage)
   }
 
   create(scene: MainScene) {
-    const gameDimentions = scene.game.scale.gameSize
-    const image = {
-      width: 243,
-      height: 272,
-    }
-    const scale = 0.5
+    const gameDimensions = scene.game.scale.gameSize
+    const container = scene.add.container(gameDimensions.width - 200, 10).setName('scoreContainer')
 
-    const elem = scene.scoreText = scene.add.text(gameDimentions.width - 150, 15, '0X', { fontSize: '40px', color: colors.blue })
-    elem.setVisible(false)
-    elem.setName('scoreElem')
+    const text = scene.add.text(100, 0, '0X', { fontSize: '40px', color: colors.blue, fontStyle: 'bold' })
+      .setName('score-text')
 
-    const elemImage = scene.add.image(gameDimentions.width - (image.width / 2) / 2, (image.height * scale / 2) / 2, 'point') as Phaser.GameObjects.Image
-    elemImage.setVisible(false)
-    elemImage.setName('scoreElemImage')
-    elemImage.setScale(scale)
+    const image = scene.add.image(150, 0, 'score-image')
+      .setScale(0.35)
+      .setOrigin(0) as Phaser.GameObjects.Image
+
+    container.add(text)
+    container.add(image)
   }
 
   update(scene: MainScene) {
-    const elem = scene.children.getByName('scoreElem') as Phaser.GameObjects.Text
-    if (elem && scene.gameIsRunning)
-      elem.setVisible(true)
+    const scoreContainer = scene.children.getByName('scoreContainer') as Phaser.GameObjects.Container
+    if (scoreContainer && scene.gameIsRunning)
+      scoreContainer.setVisible(true)
 
-    const elemImage = scene.children.getByName('scoreElemImage') as Phaser.GameObjects.Text
-    if (elemImage && scene.gameIsRunning)
-      elemImage.setVisible(true)
+    const scoreText = scoreContainer.getByName('score-text') as Phaser.GameObjects.Text
+
+    if (scoreText && scene.gameIsRunning) {
+      scoreText.setText(`${scene.score}X`)
+      if (scene.score > 9)
+        scoreText.setX(75)
+
+      if (scene.score > 99)
+        scoreText.setX(50)
+
+      if (scene.score > 999)
+        scoreText.setX(25)
+    }
   }
 }

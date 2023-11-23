@@ -32,7 +32,6 @@ function createElem(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
 
   const handleCollision = () => {
     scene.score += 1
-    scene.scoreText.setText(`${scene.score}X`)
 
     const elem = scene.children.getByName('point') as Phaser.GameObjects.Image
     elem.destroy()
@@ -42,24 +41,24 @@ function createElem(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
 }
 
 function spawn(this: MainScene) {
-  const gameDimentions = this.game.scale.gameSize
+  const gameDimensions = this.game.scale.gameSize
   const image = {
     width: 243,
     height: 272,
   }
 
-  const spawnHeight = Math.floor(Math.random() * gameDimentions.height / 2)
+  const spawnHeight = Math.floor(Math.random() * gameDimensions.height / 2)
 
   const scale = calculateScale({
-    screenHeight: gameDimentions.height,
+    screenHeight: gameDimensions.height,
     imageWidth: image.width,
     imageHeight: image.height,
     fractionOfScreen: 1 / 3,
   })
 
   const elem = this.add.image(
-    gameDimentions.width + 200,
-    gameDimentions.height - spawnHeight,
+    gameDimensions.width + 200,
+    gameDimensions.height - spawnHeight,
     'point',
   )
     .setOrigin(1)

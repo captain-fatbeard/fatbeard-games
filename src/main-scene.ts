@@ -12,7 +12,6 @@ export class MainScene extends Scene {
   private scoreElem: ScoreElem
 
   score: number
-  scoreText: any
   gameIsRunning: boolean
   gameIsOver: boolean
   stagedPlayer: any
