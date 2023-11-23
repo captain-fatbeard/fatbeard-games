@@ -1,17 +1,17 @@
 import { colors, config } from '../config'
 import { calculateScale } from '../helpers/scale'
 import type { MainScene } from '../main-scene'
-import charactorWalk1 from './../assets/charactor/charactor-walk-1.png'
-import charactorWalk2 from './../assets/charactor/charactor-walk-2.png'
-import charactorStanding from './../assets/charactor/charactor-standing.png'
-import charactoDead from './../assets/charactor/charactor-dead.png'
+import characterWalk1 from './../assets/character/character-walk-1.png'
+import characterWalk2 from './../assets/character/character-walk-2.png'
+import characterStanding from './../assets/character/character-standing.png'
+import charactoDead from './../assets/character/character-dead.png'
 
 export class Player {
   preload(scene: MainScene) {
-    scene.load.image('charactor-walk-1', charactorWalk1)
-    scene.load.image('charactor-walk-2', charactorWalk2)
-    scene.load.image('charactor-standing', charactorStanding)
-    scene.load.image('charactor-dead', charactoDead)
+    scene.load.image('character-walk-1', characterWalk1)
+    scene.load.image('character-walk-2', characterWalk2)
+    scene.load.image('character-standing', characterStanding)
+    scene.load.image('character-dead', charactoDead)
   }
 
   create(scene: MainScene) {
@@ -31,16 +31,16 @@ export class Player {
     const player = scene.add.sprite(
       image.width * scale,
       gameDimensions.height,
-      'charactor-standing',
+      'character-standing',
     ).setName('player').setScale(scale)
 
     // Define animations
     scene.anims.create({
       key: 'walking',
       frames: [
-        { key: 'charactor-standing' },
-        { key: 'charactor-walk-1' },
-        { key: 'charactor-walk-2' },
+        { key: 'character-standing' },
+        { key: 'character-walk-1' },
+        { key: 'character-walk-2' },
       ],
       frameRate: 10,
       repeat: -1,
@@ -95,13 +95,13 @@ export class Player {
       return
 
     if (playerBody.velocity.y < -5 || playerBody.velocity.y > 100)
-      player.setTexture('charactor-walk-2')
+      player.setTexture('character-walk-2')
 
     else if (!player.anims.isPlaying && scene.gameIsRunning)
       player.play('walking')
 
     if (scene.gameIsOver) {
-      player.setTexture('charactor-dead')
+      player.setTexture('character-dead')
       player.stop()
     }
   }
