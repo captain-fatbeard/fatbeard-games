@@ -21,6 +21,7 @@ const config = {
     arcade: {
       gravity: { y: calculateGravity() },
       debug: !!window.location.href.includes('debug'),
+      fps: 60,
     },
   },
   scene: MainScene,
