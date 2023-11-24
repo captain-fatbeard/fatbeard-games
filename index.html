@@ -9,6 +9,16 @@
 
 <body>
   <div id="app"></div>
+  <script>
+    // Function to reload the page
+    function reloadPage() {
+      location.reload();
+    }
+
+    // Attach the reloadPage function to the window resize event
+    window.addEventListener('resize', reloadPage);
+  </script>
+
   <script type="module" src="src/main.ts"></script>
 </body>
 
