@@ -28,6 +28,7 @@ export class GameOver {
 
     elem.on('pointerdown', () => {
       scene.scene.restart()
+      scene.score = 0
       scene.gameIsRunning = true
       scene.gameIsOver = false
     })
