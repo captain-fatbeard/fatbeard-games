@@ -15,8 +15,7 @@ export class Obstacles {
     const wobbleAmount = 3
     const wobbleSpeed = 0.01
     const secondObstacleChance = 0.4
-
-    const deltaTime = scene.game.loop.delta / 1000 // Convert delta time to seconds
+    const deltaTime = scene.game.loop.delta / 1000
 
     if (!elem && !elem2 && scene.gameIsRunning) {
       createObstacle(scene, player)
