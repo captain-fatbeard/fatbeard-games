@@ -11,10 +11,12 @@ export class Obstacles {
   update(scene: MainScene, player: Phaser.Physics.Arcade.Sprite) {
     const elem = scene.children.getByName('obstacle') as Phaser.GameObjects.Image
     const elem2 = scene.children.getByName('obstacle2') as Phaser.GameObjects.Image
-    const speed = 7
+    const speed = 0.6 // Adjust the speed factor as needed
     const wobbleAmount = 3
     const wobbleSpeed = 0.01
     const secondObstacleChance = 0.4
+
+    const deltaTime = scene.game.loop.delta / 1000 // Convert delta time to seconds
 
     if (!elem && !elem2 && scene.gameIsRunning) {
       createObstacle(scene, player)
@@ -23,14 +25,14 @@ export class Obstacles {
     }
 
     if (elem && scene.gameIsRunning) {
-      elem.setX(elem.x - speed * scene.game.scale.width / 800)
+      elem.setX(elem.x - speed * scene.game.scale.width * deltaTime)
       elem.setAngle(Math.sin(scene.time.now * wobbleSpeed) * wobbleAmount)
       if (elem.x + elem.width * elem.scaleX < 0)
         elem.destroy()
     }
 
     if (elem2 && scene.gameIsRunning) {
-      elem2.setX(elem2.x - speed * scene.game.scale.width / 800)
+      elem2.setX(elem2.x - speed * scene.game.scale.width * deltaTime)
       elem2.setAngle(Math.sin(scene.time.now * wobbleSpeed) * wobbleAmount)
       if (elem2.x + elem2.width * elem2.scaleX < 0)
         elem2.destroy()
