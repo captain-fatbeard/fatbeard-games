@@ -7,6 +7,8 @@ import characterStanding from './../assets/character/character-standing.png'
 import charactoDead from './../assets/character/character-dead.png'
 
 export class Player {
+  private playerStandingY: number | null = 0
+
   preload(scene: MainScene) {
     scene.load.image('character-walk-1', characterWalk1)
     scene.load.image('character-walk-2', characterWalk2)
@@ -78,7 +80,11 @@ export class Player {
       if (!scene.gameIsRunning || scene.gameIsOver || !hitboxBody)
         return
 
-      if (playerBody.velocity.y < 100 && playerBody.velocity.y > -5) {
+      // re calibrate the player standing y
+      if (!this.playerStandingY)
+        this.playerStandingY = playerBody.y
+
+      if (!(playerBody.y + 50 < this.playerStandingY) && playerBody.velocity.y < 100 && playerBody.velocity.y > -5) {
         playerBody.setVelocityY(-jumpHeight)
         hitboxBody.setVelocityY(-jumpHeight)
       }
