@@ -15,10 +15,12 @@ export class Points {
       createElem(scene, player)
 
     if (elem && scene.gameIsRunning) {
-      const speed = 4
+      const speed = 0.4
       const wobbleAmount = 3
       const wobbleSpeed = 0.01
-      elem.setX(elem.x - speed * scene.game.scale.width / 800) // 800 is the base width for the speed reference
+      const deltaTime = scene.game.loop.delta / 1000
+
+      elem.setX(elem.x - speed * scene.game.scale.width * deltaTime) // 800 is the base width for the speed reference
       elem.setAngle(Math.sin(scene.time.now * wobbleSpeed) * wobbleAmount)
     }
 
