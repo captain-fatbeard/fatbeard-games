@@ -1,11 +1,9 @@
-# Flappy bird game
-
-Code template for a flappy bird game
+# Phaser JS Games
 
 
 ## Tech Stack
 
-Vite, React, Typescript
+Vite, React, Typescript, PhaserJS
 
 
 ## Run Locally
@@ -13,13 +11,13 @@ Vite, React, Typescript
 Clone the project
 
 ```bash
-git clone captain-fatbeard/flappy-bird.git
+git clone captain-fatbeard/fatbeard-games
 ```
 
 Go to the project directory
 
 ```bash
-cd flappy-bird
+cd fatbeard-games
 ```
 
 Install dependencies
